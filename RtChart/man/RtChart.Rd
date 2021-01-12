@@ -10,10 +10,11 @@ RtChart(ctr)
 \arguments{
 \item{country}{\itemize{
 \item specify the country to draw the chart for
-RtChart()
 }}
 }
 \description{
 R chart function
 This function allows you to create a chart displaying the reproduction number over time
 }
+\keyword{Reproduction}
+\keyword{number}
