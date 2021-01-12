@@ -10,6 +10,7 @@ RtChart(ctr)
 \arguments{
 \item{country}{\itemize{
 \item specify the country to draw the chart for
+RtChart()
 }}
 }
 \description{

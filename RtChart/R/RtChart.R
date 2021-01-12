@@ -1,7 +1,7 @@
 #' R chart function
 #' This function allows you to create a chart displaying the reproduction number over time
 #' @param country - specify the country to draw the chart for
-
+#' RtChart()
 
 RtChart <- function(ctr){
 
