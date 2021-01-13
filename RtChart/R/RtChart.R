@@ -11,7 +11,7 @@ RtChart <- function(ctr){
   require(dplyr)
 
   Dataset_Rt <- read.csv("https://raw.githubusercontent.com/epiforecasts/covid-rt-estimates/master/national/cases/summary/rt.csv")
-  Dataset_Rt <- WHO_EURO_countryname(Dataset_Rt,country)
+  Dataset_Rt <- WHOCountryNames(Dataset_Rt,country)
 
   Dataset_Rt_Country<-Dataset_Rt %>% filter(country==ctr) %>%
     filter(type!='forecast') %>% select(country,date,R=median,lower_90,upper_90) %>%
