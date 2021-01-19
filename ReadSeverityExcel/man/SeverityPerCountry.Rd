@@ -9,7 +9,3 @@ SeverityPerCountry(infile, country)
 \description{
 This is reading the excel file made of many sheets and returns a single long dataset for the selected country
 }
-\examples{
-SeverityPerCountry()
-Need dplyr, hablar and readxl packages
-}

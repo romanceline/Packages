@@ -5,8 +5,6 @@
 #' @keywords
 #' @export
 #' @examples
-#' SeverityPerCountry()
-#' Need dplyr, hablar and readxl packages
 
 
 SeverityPerCountry<-function(infile,country){

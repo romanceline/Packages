@@ -1,20 +1,20 @@
 Package: ReadSeverityExcel
-Title: What the Package Does (One Line, Title Case)
+Title: Converts Severity Excel (from PHSM team)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Celine",
+           family = "Roman",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "romanc@who.int",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Reads the severity excel file (shared once a week by PHSM team) and transforms it as a long unique dataset. Can be done for all countries or only one (2 different functions)
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
+Depends: 
+    readxl,
     dplyr,
-    hablar,
-    readxl
+    hablar
