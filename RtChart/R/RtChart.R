@@ -8,7 +8,6 @@
 
 RtChart <- function(ctr){
 
-  require(dplyr)
 
   Dataset_Rt <- read.csv("https://raw.githubusercontent.com/epiforecasts/covid-rt-estimates/master/national/cases/summary/rt.csv")
   Dataset_Rt <- WHOCountryNames(Dataset_Rt,country)

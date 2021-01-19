@@ -1,13 +1,13 @@
 Package: RtChart
-Title: What the Package Does (One Line, Title Case)
+Title: Creates Rt Chart 
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Celine",
+           family = "Roman",
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Reads Rt csv online (Epiforecast) and builds Rt chart out of it (EURO Region), with classification and confidence interval
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
@@ -15,7 +15,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
+    dplyr
+Depends: 
     WHOCountryNames,
-    dplyr,
     lubridate,
     ggplot2
