@@ -3,7 +3,7 @@
 \name{SpaguettiPlot}
 \alias{SpaguettiPlot}
 \title{SpaguettiPlot function
-This function will highlight one variable (NewDeats, NewCases, CasesIncidence, DeathsIncidence) for one country against other countries}
+This function will highlight one variable (NewDeaths, NewCases, CasesIncidence, DeathsIncidence) for one country against other countries}
 \usage{
 SpaguettiPlot(Country, Variable, AllOrSelection, ListCountriesToCompare, col)
 }
@@ -13,7 +13,7 @@ SpaguettiPlot(Country, Variable, AllOrSelection, ListCountriesToCompare, col)
 }}
 
 \item{Variable}{\itemize{
-\item Variable can be NewCases,NewDeaths,TotalCases,TotalDeaths, DailyRateCases, DailyRateDeaths, CumulativeRateCases,CumulativeRateDeaths
+\item Variable can be NewCases,NewDeaths,NewCases_Rate,NewDeaths_Rate (will be developed further with other variables)
 }}
 
 \item{AllOrSelection}{\itemize{
@@ -26,5 +26,5 @@ SpaguettiPlot(Country, Variable, AllOrSelection, ListCountriesToCompare, col)
 }
 \description{
 SpaguettiPlot function
-This function will highlight one variable (NewDeats, NewCases, CasesIncidence, DeathsIncidence) for one country against other countries
+This function will highlight one variable (NewDeaths, NewCases, CasesIncidence, DeathsIncidence) for one country against other countries
 }
