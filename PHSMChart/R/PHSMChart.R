@@ -30,10 +30,15 @@ PHSMChart<-function(SeverityExcel,country){
   #Important when it comes to align the charts
 
   StartDate<-min(WholeDataset$DateReport)
-  EndDate<-max(StringencyDataset$Date)
+  EndDate<-max(StringencyDataset$Date)-1
 
-  EpiCasesToPlot<-WholeDataset %>% select(DateReport,Cases=Spline_3DaysAverageCases)
-  EpiDeathsToPlot<-WholeDataset %>% select(DateReport,Deaths=Spline_3DaysAverageDeaths)
+  EpiCasesToPlot<-WholeDataset %>% select(DateReport,Cases=Spline_3DaysAverageCases) %>% filter(DateReport<=EndDate)
+  TopValueCases<-top_n(EpiCasesToPlot,1,Cases)
+  maxCases<-round(max(EpiCasesToPlot$Cases),0)
+  EpiDeathsToPlot<-WholeDataset %>% select(DateReport,Deaths=Spline_3DaysAverageDeaths) %>% filter(DateReport<=EndDate)
+  TopValueDeaths<-top_n(EpiDeathsToPlot,1,Deaths)
+  maxDeaths<-round(max(EpiDeathsToPlot$Deaths),0)
+
 
   StringencyDataset<-WholeDataset %>% select(DateReport,c(GlobalIndex:Travels)) %>%
     pivot_longer(cols=c(GlobalIndex:Travels)) %>%
@@ -48,21 +53,31 @@ PHSMChart<-function(SeverityExcel,country){
 
   Epicurve_Cases<-ggplot(EpiCasesToPlot)+
     theme_minimal()+
-    labs(x="Date of report",y='Number of cases',linetype=1)+
-    geom_line(aes(x=DateReport,y=Cases),color='black',show.legend = FALSE)+
+    labs(x="Date of report",y='Number of Cases',linetype=1)+
+    geom_area(aes(x=DateReport,y=Cases),color='grey',fill='light grey',size=0.8,show.legend = FALSE)+
+    geom_point(data=TopValueCases,aes(x=DateReport,y=Cases))+
+    geom_label(data=TopValueCases, aes(x=DateReport,y=Cases,label = round(Cases,0)),hjust=-0.5)+
     scale_x_date(date_breaks = "15 days",date_labels =  "%d-%b",limits=c(StartDate,EndDate))+
-    scale_y_continuous(position='left',sec.axis = dup_axis())+
+    scale_y_continuous(position='left',sec.axis = dup_axis(),limits=c(0,maxCases+1))+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),
-          axis.text.y.left=element_blank(),axis.title.y.right=element_blank())
+          axis.text.y.left=element_blank(),axis.title.y.right=element_blank(),axis.title.y.left=element_blank(),
+          axis.text.y.right=element_blank())+
+    annotate("text", x = StartDate+20, y=0,label = "Number of daily \n cases  over time",vjust=-0.5)+
+    theme_void()
 
   Epicurve_Deaths<-ggplot(EpiDeathsToPlot)+
     theme_minimal()+
     labs(x="Date of report",y='Number of deaths',linetype=1)+
-    geom_line(aes(x=DateReport,y=Deaths),color='black',show.legend = FALSE)+
+    geom_area(aes(x=DateReport,y=Deaths),color='grey',fill='light grey',size=0.8,show.legend = FALSE)+
+    geom_point(data=TopValueDeaths,aes(x=DateReport,y=Deaths))+
+    geom_label(data=TopValueDeaths, aes(x=DateReport,y=Deaths,label = round(Deaths,0)),hjust=-0.5)+
     scale_x_date(date_breaks = "15 days",date_labels =  "%d-%b",limits=c(StartDate,EndDate))+
-    scale_y_continuous(position='left',sec.axis = dup_axis())+
+    scale_y_continuous(position='left',sec.axis = dup_axis(),limits=c(0,maxDeaths+1))+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),
-          axis.text.y.left=element_blank(),axis.title.y.right=element_blank())
+          axis.text.y.left=element_blank(),axis.title.y.right=element_blank(),axis.title.y.left=element_blank(),
+          axis.text.y.right=element_blank())+
+    annotate("text", x = StartDate+20, y=0,label = "Number of daily \n deaths over time",vjust=-0.5)+
+    theme_void()
 
 
   PHSM_TimeLine<-ggplot(StringencyDataset,aes(x=DateReport,y=Height))+
@@ -70,23 +85,23 @@ PHSMChart<-function(SeverityExcel,country){
     scale_color_gradient(high = 'black', low = 'white',breaks=c(0,100),labels=c('No measures','Most severe measures'))+
     scale_alpha_continuous(limits = c(0,100),range = c(0, 1))+
     geom_tile(stat='identity',aes(x=DateReport,y=Height,alpha=value,fill=factor(name,levels=c('Masks',"Schools",'Businesses','Gatherings','Movements','Travels',"GlobalIndex"))),position='stack')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 50, label = "PHSM Severity Index",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 125, label = "International Travel",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 175, label = "Movements",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 225, label = "Gatherings",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 275, label = "Businesses",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 325, label = "School",color='white')+
-    annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 375, label = "Masks",color='white')+
-    annotate('text', x = EndDate, y=50, label = 'PHSM Severity Index', color='#04319D',hjust = 0)+
-    annotate("text", x = EndDate, y = 125, label = "International Travel",color='#AD0C00',hjust=0)+
-    annotate("text", x = EndDate, y = 175, label = "Movements",color='#0A698A',hjust=0)+
-    annotate("text", x = EndDate, y = 225, label = "Gatherings",color='#A1078B',hjust=0)+
-    annotate("text", x = EndDate, y = 275, label = "Businesses",color='#3C8E05',hjust=0)+
-    annotate("text", x = EndDate, y = 325, label = "Schools",color='#D0C600',hjust=0)+
-    annotate("text", x = EndDate, y = 375, label = "Masks",color='#E57E00',hjust=0)+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 50, label = "PHSM Severity Index",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 125, label = "International Travel",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 175, label = "Movements",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 225, label = "Gatherings",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 275, label = "Businesses",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 325, label = "School",color='white')+
+    # annotate("text", x = StartDate+(EndDate-StartDate)*1.9/3, y = 375, label = "Masks",color='white')+
+    annotate('text', x = EndDate, y=50, label = 'PHSM Severity Index', color='#000000',hjust = 0)+
+    annotate("text", x = EndDate, y = 125, label = "International Travel",color='#810E1F',hjust=0)+
+    annotate("text", x = EndDate, y = 175, label = "Movements",color='#008DC9',hjust=0)+
+    annotate("text", x = EndDate, y = 225, label = "Gatherings",color='#043062',hjust=0)+
+    annotate("text", x = EndDate, y = 275, label = "Businesses",color='#0C6E61',hjust=0)+
+    annotate("text", x = EndDate, y = 325, label = "Schools",color='#C59507',hjust=0)+
+    annotate("text", x = EndDate, y = 375, label = "Masks",color='#D86422',hjust=0)+
     scale_fill_manual(breaks=c('Masks',"Schools",'Businesses','Gatherings','Movements','Travels',"GlobalIndex"),
                       labels=c('Masks','Schools measures', 'Workplace measures','Restrictions on gatherings','Stay-at-home requirements', 'International travel restrictions','Global Severity Index'),
-                      values=c('#E57E00','#D0C600','#3C8E05','#A1078B','#0A698A','#AD0C00','#04319D'))+
+                      values=c('#D86422','#C59507','#0C6E61','#043062','#008DC9','#810E1F','#000000'))+
     scale_x_date(date_breaks = "15 days",date_labels =  "%d-%b",limits=c(StartDate,EndDate))+
     labs(y='Measure Severity',x='',color='PHSM Severity Index Scale')+
     scale_y_continuous(position='left')+
@@ -100,7 +115,7 @@ PHSMChart<-function(SeverityExcel,country){
     geom_tile(stat='identity',aes(x=x,y=Height,alpha=Alpha,fill=factor(Index,levels=c('Masks',"Schools",'Businesses','Gatherings','Movements','Borders',"GlobalIndex"))),position='stack')+
     scale_fill_manual(breaks=c('Masks','Schools','Businesses','Gatherings','Movements','Borders','GlobalIndex'),
                       labels=c('Masks','Schools measures', 'Workplace measures', 'Restrictions on gatherings', 'Stay-at-home requirements', 'International travel restrictions','Global Severity Index'),
-                      values=c('#E57E00','#D0C600','#3C8E05','#A1078B','#0A698A','#AD0C00','#04319D'))+
+                      values=c('#D86422','#C59507','#0C6E61','#043062','#008DC9','#810E1F','#000000'))+
     theme_void()+
     theme(legend.position="none",plot.title=element_text(hjust=0.5,size=10))+
     scale_y_continuous(limits=c(-5,NA))+
@@ -112,11 +127,11 @@ PHSMChart<-function(SeverityExcel,country){
 
   ThreePlots<-plot_grid(Epicurve_Cases+theme(legend.position='none'),
                       Epicurve_Deaths+theme(legend.position='none'),
-                      PHSM_TimeLine+theme(legend.position='none'),align='v',axis='lr',nrow=3,rel_heights=c(2,2,2))
+                      PHSM_TimeLine+theme(legend.position='none'),align='v',axis='lr',nrow=3,rel_heights=c(2,2,3))
 
-  Legend<-plot_grid(NA,NA,TrickLegend,NA,NA,ncol=5)
+  Legend<-plot_grid(NA,TrickLegend,NA,ncol=3,rel_widths=c(1,3,1))
 
-  Overview<-plot_grid(ThreePlots,Legend,nrow=2,rel_heights=c(5,1))
+  Overview<-plot_grid(ThreePlots,Legend,nrow=2,rel_heights=c(7,1))
 
   return(Overview)
 
