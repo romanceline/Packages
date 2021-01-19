@@ -1,0 +1,27 @@
+Package: ChartCaseIncidenceCDC
+Title: Show Case Incidence Using CDC Methodology 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Celine",
+           family = "Roman",
+           role = c("aut", "cre"),
+           email = "romanc@who.int",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Produces chart showing case incidence using CDC methodology classification
+License: `use_mit_license()`, `use_gpl3_license()` or friends to 
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10),
+    dplyr,
+    ggplot2,
+    BuildExtendedEpiDataset,
+    stringr,
+    stats,
+    GetEpiData,
+    WHOCountryNames,
+    lubridate,
+    tidyr
