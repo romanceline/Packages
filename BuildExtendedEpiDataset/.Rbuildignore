@@ -1,2 +1,3 @@
 ^BuildExtendedEpiDataset\.Rproj$
 ^\.Rproj\.user$
+^data-raw$
