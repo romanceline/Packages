@@ -1,20 +1,20 @@
 Package: GetEpiData
-Title: What the Package Does (One Line, Title Case)
+Title: Download EURO EpiData (Latest available)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Celine",
+           family = "Roman",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "romanc@who.int",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: In this package, you will find one function that can be used to download the latest EURO epi data (no parameter needed).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
+Depends: 
     dplyr,
     httr,
     jsonlite
