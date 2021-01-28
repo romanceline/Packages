@@ -1,0 +1,21 @@
+Package: SummaryTable
+Title: Create Summary Table (All EURO Countries)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Celine",
+           family = "Roman",
+           role = c("aut", "cre"),
+           email = "romanc@who.int",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Creates the daily summary table
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10),
+    WHOCountryNames,
+    GetEpiData,
+    lubridate
