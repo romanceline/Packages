@@ -17,7 +17,8 @@ WHOCountryNames <- function(dataset,countryfield) {
                                      !!countryfield=='Moldova' ~ 'Republic Of Moldova',
                                      !!countryfield=='Russia' ~ 'Russian Federation',
                                      !!countryfield=='Russian Fed.' ~ 'Russian Federation',
-                                     !!countryfield=='UK' ~ 'United Kingdom'))
+                                     !!countryfield=='UK' ~ 'United Kingdom',
+                                     !!countryfield=='Bosnia & Herzegovina' ~ 'Bosnia And Herzegovina'))
 
   return(NewDataset)
 }
