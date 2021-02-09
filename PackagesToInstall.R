@@ -2,7 +2,7 @@
 #Some custom packages make use of other custom packages, important to have them all downloaded
 
 Packages_CRAN<-c('ggplot2','hablar','devtools','readxl','zoo','dplyr','tidyr','httr','jsonlite','lubridate','cowplot','stringr','stats','imputeTS')
-Packages_Custom<-c('WHOCountryNames','RtChart','SpaguettiPlot','ReadSeverityExcel','GetEpiData','BuildExtendedEpiDataset','PHSMChart')
+Packages_Custom<-c('WHOCountryNames','RtChart','SpaguettiPlot','ReadSeverityExcel','GetEpiData','BuildExtendedEpiDataset','PHSMChart','TableIndicators')
 
 for (i in Packages_CRAN) {
   print(i)
