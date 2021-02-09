@@ -2,8 +2,8 @@
 % Please edit documentation in R/SummaryTable.R
 \name{SummaryTable}
 \alias{SummaryTable}
-\title{PHSMChart
-This function will build a chart showing the epicurve against PHSM measures}
+\title{SummaryTable
+Function giving the summary table}
 \usage{
 SummaryTable(dataset)
 }
@@ -11,6 +11,6 @@ SummaryTable(dataset)
 \item{dataset}{qry_COVID_cases_by_date_final.csv}
 }
 \description{
-PHSMChart
-This function will build a chart showing the epicurve against PHSM measures
+SummaryTable
+Function giving the summary table
 }

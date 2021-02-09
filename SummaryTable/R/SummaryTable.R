@@ -1,5 +1,5 @@
-#' PHSMChart
-#' This function will build a chart showing the epicurve against PHSM measures
+#' SummaryTable
+#' Function giving the summary table
 #'
 #' @param dataset qry_COVID_cases_by_date_final.csv
 #'
