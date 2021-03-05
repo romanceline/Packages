@@ -49,4 +49,6 @@ SeverityForAllCountries<-function(infile){
   for (country in ListCountries){
     Severity_<-SeverityPerCountry(infile,country)
     Severity<-bind_rows(Severity,Severity_)
-  }}
+  }
+  return(Severity)
+  }
