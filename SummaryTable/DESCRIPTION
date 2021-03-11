@@ -18,4 +18,5 @@ Depends:
     R (>= 2.10),
     WHOCountryNames,
     GetEpiData,
-    lubridate
+    lubridate,
+    GetPopulation

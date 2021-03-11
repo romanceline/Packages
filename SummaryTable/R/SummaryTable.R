@@ -12,7 +12,6 @@ SummaryTable<-function(dataset){
   EuroDataset<-GetEpiData() %>%
     mutate(DateReport=as.Date(DateReport),ADM0NAME=str_to_title(ADM0NAME))
 
-
   Dataset_Epiforecast_ <- read.csv("https://raw.githubusercontent.com/epiforecasts/covid-rt-estimates/master/national/cases/summary/rt.csv") %>%
     filter(type=='estimate')
 
@@ -35,7 +34,7 @@ SummaryTable<-function(dataset){
     WHOCountryNames(ADM0NAME)
 
 
-  Dataset_GlobalPopulation <- PopulationData %>% mutate(ADM0NAME=str_to_title(ADM0NAME))
+  Dataset_GlobalPopulation <- GetPopulation()
 
   #This will need to change at some point
   Dataset_LastReportingDate<-data.frame(ADM0NAME=unique(EuroDataset$ADM0NAME),
