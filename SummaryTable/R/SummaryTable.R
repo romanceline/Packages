@@ -94,7 +94,7 @@ for (ctr in unique(MainDataset$ADM0NAME)){
 Incidence<-function(country,incidence,delay){
   LastUpdate<-(Dataset_LastReportingDate %>% filter(ADM0NAME==country))$LastUpdate
   if (CurrentDate-LastUpdate<=3){
-    Pop<-(Dataset_GlobalPopulation %>% filter(ADM0NAME==country))$UNPOP2019
+    Pop<-(Dataset_GlobalPopulation %>% filter(ADM0NAME==country))$Population
     Incidence<-round(((MainDataset %>% filter(ADM0NAME==country) %>% filter(DateReport==LastUpdate-delay))$TotalCases-
                         (MainDataset %>% filter(ADM0NAME==country) %>% filter(DateReport==LastUpdate-incidence-delay))$TotalCases)/Pop*100000,1)}
   else {
@@ -131,11 +131,11 @@ TableIncidences<-TableIncidences %>%
 
 
 SummaryTable_AllCountries<- MainDataset %>% filter(DateReport==CurrentDate) %>%
-  select(ADM0NAME,TotalCases,TotalDeaths,TransmissionStatus,RO,Trend,UNPOP2019) %>%
+  select(ADM0NAME,TotalCases,TotalDeaths,TransmissionStatus,RO,Trend,Population) %>%
   left_join(TableIncidences,by=c('ADM0NAME'='ctr')) %>%
   left_join(TableCases,by=c('ADM0NAME'='ctr')) %>%
-  mutate(CumulativeIncidence=round(TotalCases/UNPOP2019*100000,1)) %>%
-  mutate(RateDeaths=round(TotalDeaths/UNPOP2019*1000000,1))
+  mutate(CumulativeIncidence=round(TotalCases/Population*100000,1)) %>%
+  mutate(RateDeaths=round(TotalDeaths/Population*1000000,1))
 
 return(SummaryTable_AllCountries)
 
