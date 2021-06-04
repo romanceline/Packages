@@ -103,6 +103,18 @@ Incidence<-function(country,incidence,delay){
   return(Incidence)
 }
 
+Incidence_Deaths<-function(country,incidence,delay){
+  LastUpdate<-(Dataset_LastReportingDate %>% filter(ADM0NAME==country))$LastUpdate
+  if (CurrentDate-LastUpdate<=3){
+    Pop<-(Dataset_GlobalPopulation %>% filter(ADM0NAME==country))$Population
+    Incidence<-round(((MainDataset %>% filter(ADM0NAME==country) %>% filter(DateReport==LastUpdate-delay))$TotalDeaths-
+                        (MainDataset %>% filter(ADM0NAME==country) %>% filter(DateReport==LastUpdate-incidence-delay))$TotalDeaths)/Pop*1000000,1)}
+  else {
+    Incidence<-NA
+  }
+  return(Incidence)
+}
+
 #Creates table all countries and their incidences
 TableIncidences<-data.frame()
 for (ctr in unique(MainDataset$ADM0NAME)){
@@ -112,13 +124,17 @@ for (ctr in unique(MainDataset$ADM0NAME)){
   SvnDaysIncidence_Latest<-Incidence(ctr,7,0)
   SvnDaysIncidence_1WkEarlier<-Incidence(ctr,7,7)
   SvnDaysIncidence_2WkEarlier<-Incidence(ctr,7,14)
+  SvnDaysIncidence_Deaths_Latest<-Incidence_Deaths(ctr,7,0)
+  SvnDaysIncidence_Deaths_1WkEarlier<-Incidence_Deaths(ctr,7,7)
   vector<-data.frame(ctr,
                      FrtDaysIncidence_Latest,
                      FrtDaysIncidence_1WkEarlier,
                      FrtDaysIncidence_2WkEarlier,
                      SvnDaysIncidence_Latest,
                      SvnDaysIncidence_1WkEarlier,
-                     SvnDaysIncidence_2WkEarlier
+                     SvnDaysIncidence_2WkEarlier,
+                     SvnDaysIncidence_Deaths_Latest,
+                     SvnDaysIncidence_Deaths_1WkEarlier
   )
   TableIncidences<-bind_rows(vector,TableIncidences)
 }
