@@ -22,7 +22,8 @@ WHOCountryNames <- function(dataset,countryfield) {
                                      !!countryfield=='United Kingdom Of Great Britain And Northern Ireland' ~ 'United Kingdom',
                                      !!countryfield=='Kosovo[1]' ~ 'Kosovo',
                                      !!countryfield=='Kosovo(1)' ~ 'Kosovo',
-                                     !!countryfield=='Kyrgystan' ~ 'Kyrgyzstan'))
+                                     !!countryfield=='Kyrgystan' ~ 'Kyrgyzstan',
+                                     !!countryfield=='United Kingdom' ~ 'The United Kingdom'))
 
   return(NewDataset)
 }
