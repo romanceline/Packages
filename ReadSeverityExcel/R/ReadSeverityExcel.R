@@ -45,6 +45,7 @@ SeverityPerCountry<-function(infile,country){
 
 SeverityForAllCountries<-function(infile){
   ListCountries<-excel_sheets(infile)
+  ListCountries<-ListCountries[!grepl('Sheet', ListCountries)]
   Severity<-data.frame()
   for (country in ListCountries){
     Severity_<-SeverityPerCountry(infile,country)
